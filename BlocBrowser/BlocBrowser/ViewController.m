@@ -73,6 +73,13 @@
     
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    // Welcome message on launch
+    UIAlertController *welcome = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome", nil) message:@"Thank you for using BlocBrowser!" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                       style:UIAlertActionStyleCancel handler:nil];
+    [welcome addAction:okAction];
+    [self presentViewController:welcome animated:YES completion:nil];
+    
 }
 
 - (void) viewWillLayoutSubviews {
