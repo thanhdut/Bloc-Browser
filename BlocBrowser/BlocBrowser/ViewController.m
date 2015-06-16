@@ -201,4 +201,13 @@
     }
 }
 
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithScale:(CGFloat)scale {
+    CGAffineTransform resizeToolbar = CGAffineTransformMakeScale(scale, scale);
+    CGRect potentialNewFrame = toolbar.frame;
+    CGRectApplyAffineTransform(potentialNewFrame, resizeToolbar);
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+}
+
 @end
