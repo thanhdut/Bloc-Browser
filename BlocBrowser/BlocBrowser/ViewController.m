@@ -201,13 +201,14 @@
     }
 }
 
-- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithScale:(CGFloat)scale {
-    CGAffineTransform resizeToolbar = CGAffineTransformMakeScale(scale, scale);
-    CGRect potentialNewFrame = toolbar.frame;
-    CGRectApplyAffineTransform(potentialNewFrame, resizeToolbar);
-    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
-        toolbar.frame = potentialNewFrame;
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithRecognizer:(UIPinchGestureRecognizer *)recognizer {
+    for (UILabel *thisLabel in toolbar.labels) {
+        if (thisLabel.font.pointSize*recognizer.scale > 5.0 && thisLabel.font.pointSize*recognizer.scale < 48.0) {
+            thisLabel.font = [UIFont systemFontOfSize:thisLabel.font.pointSize*recognizer.scale];
+        }
     }
+    // Changes bounds of the view but doesn't expand or shrink visible edges
+    //recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
 }
 
 @end

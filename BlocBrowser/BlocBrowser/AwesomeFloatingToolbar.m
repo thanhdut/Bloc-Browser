@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) NSArray *currentTitles;
 @property (nonatomic, strong) NSArray *colors;
-@property (nonatomic, strong) NSArray *labels;
 @property (nonatomic, weak) UILabel *currentLabel;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
@@ -147,15 +146,8 @@
 }
 
 - (void) pinchFired:(UIPinchGestureRecognizer *)recognizer{
-    if (recognizer.state == UIGestureRecognizerStateRecognized) {
-        CGPoint location = [recognizer locationInView:self];
-        UIView *pinchedView = [self hitTest:location withEvent:nil];
-        
-        if ([self.labels containsObject:pinchedView]) {
-            if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPinchWithScale:)]) {
-                [self.delegate floatingToolbar:self didTryToPinchWithScale:[recognizer scale]];
-            }
-        }
+    if ([self.delegate respondsToSelector:@selector(floatingToolbar:didTryToPinchWithRecognizer:)]) {
+        [self.delegate floatingToolbar:self didTryToPinchWithRecognizer:recognizer];
     }
 }
 
