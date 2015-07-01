@@ -199,10 +199,19 @@
     }
 }
 
+
+
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithRecognizer:(UIPinchGestureRecognizer *)recognizer {
-    if (toolbar.frame.size.width < self.view.bounds.size.width*.97 && toolbar.frame.size.width > self.view.bounds.size.width*.05) {
-        // final test
-            recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale*.99, recognizer.scale*.99);
+    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        CGFloat currentWidth = toolbar.frame.size.width;
+        CGFloat maxWidth = self.view.bounds.size.width*.99;
+        CGFloat minWidth = self.view.bounds.size.width*.5;
+        if (currentWidth > maxWidth) {
+            recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, maxWidth/currentWidth, maxWidth/currentWidth);
+        } else if (currentWidth < minWidth) {
+            recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, minWidth/currentWidth, minWidth/currentWidth);
+        }
     }
 }
 
