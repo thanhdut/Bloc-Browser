@@ -16,16 +16,17 @@
 
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title;
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset;
-- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithRecognizer:(UIPinchGestureRecognizer *) recognizer;
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithRecognizer:(UIPinchGestureRecognizer *)recognizer;
 
 @end
 
 @interface AwesomeFloatingToolbar : UIView
 
-@property (nonatomic, strong) NSArray *labels;
+@property (nonatomic, strong) NSArray *buttons;
 - (instancetype) initWithFourTitles:(NSArray *)titles;
 
 - (void) setEnabled:(BOOL)enabled forButtonWithTitle:(NSString *)title;
+- (UIColor *) backgroundColorAtIndex:(NSInteger)index;
 
 @property (nonatomic, weak) id <AwesomeFloatingToolbarDelegate> delegate;
 

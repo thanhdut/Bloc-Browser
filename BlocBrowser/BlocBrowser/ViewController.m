@@ -49,7 +49,7 @@
     for (UIView *viewToAdd in @[self.webView, self.textField, self.awesomeToolbar]) {
         [mainView addSubview:viewToAdd];
     }
-    
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
     self.view = mainView;
 }
 
@@ -76,8 +76,6 @@
     // Now, assign the frames
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
-    
-    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
 }
 
 #pragma mark - UITextFieldDelegate
@@ -202,13 +200,10 @@
 }
 
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPinchWithRecognizer:(UIPinchGestureRecognizer *)recognizer {
-    for (UILabel *thisLabel in toolbar.labels) {
-        if (thisLabel.font.pointSize*recognizer.scale > 5.0 && thisLabel.font.pointSize*recognizer.scale < 48.0) {
-            thisLabel.font = [UIFont systemFontOfSize:thisLabel.font.pointSize*recognizer.scale];
-        }
+    if (toolbar.frame.size.width < self.view.bounds.size.width*.97 && toolbar.frame.size.width > self.view.bounds.size.width*.05) {
+        // final test
+            recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale*.99, recognizer.scale*.99);
     }
-    // Changes bounds of the view but doesn't expand or shrink visible edges
-    //recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
 }
 
 @end
